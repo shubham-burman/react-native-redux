@@ -3,6 +3,8 @@ import {StyleSheet, Text, View} from "react-native";
 import {TodoForm} from "./todo-form";
 import {CREATE_TODO} from "./reducers";
 import {connect} from 'react-redux';
+import LinearGradient from 'react-native-linear-gradient';
+import {createTodo, getTodos}  from "./action-creator";
 
 
 export class _ToDo extends Component {
@@ -17,8 +19,9 @@ export class _ToDo extends Component {
         }
     }
 
-    /*componentWillMount() {
-        fetch('http://10.0.2.2:3000/todos', {
+    componentWillMount() {
+        this.props.getTodos();
+        /*fetch('http://10.0.2.2:3000/todos', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json'
@@ -29,8 +32,8 @@ export class _ToDo extends Component {
                 const todo = data.map(item => item.name);
                 this.setState({todo, newToDo: ''});
             })
-            .catch(err => console.log(err))
-    }*/
+            .catch(err => console.log(err))*/
+    }
 
     handleChange = (text) => {
         // const {value} = e.target;
@@ -64,7 +67,9 @@ export class _ToDo extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <LinearGradient
+                colors={['#1D77EF', '#81F3FD']}
+                style={styles.container}>
                 <TodoForm
                 handlePress={this.handlePress.bind(this)}
                 handleChange={this.handleChange}
@@ -72,18 +77,22 @@ export class _ToDo extends Component {
                 />
                 <View style={styles.todoList}>
                     {this.props.todos.map((item, i) => (
-                        <Text style={styles.todoItem} key={i}>{item}</Text>))
+                        <Text style={styles.todoItem} key={i}>{item.name}</Text>))
                     }
                 </View>
-            </View>
+            </LinearGradient>
         )
     }
 }
 
 const mapActionsToProps = (dispatch) => ({
     createTodo(todo) {
-        dispatch({type: 'CREATE_TODO', payload: todo})
+        dispatch(createTodo(todo))
+    },
+    getTodos() {
+        dispatch(getTodos())
     }
+
 });
 
 const mapStateToProps = (state) => ({

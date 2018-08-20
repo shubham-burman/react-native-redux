@@ -7,11 +7,11 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet} from 'react-native';
 import {ToDo} from "./src/app/todo";
 import {store} from './src/app/store'
 import {Provider} from "react-redux";
-
+import TabView from 'react-native-scrollable-tab-view';
+import {View} from "react-native";
 /*const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
     android:
@@ -34,7 +34,12 @@ export default class App extends Component<Props> {
 
     render() {
         return (
-            <Provider store={store}><ToDo/></Provider>
+            <Provider store={store}>
+                <TabView>
+                    <ToDo tabLabel= "Todo" />
+                    <View tabLabel="other"></View>
+                </TabView>
+            </Provider>
             /*<View style={styles.container}>
                 <TouchableHighlight onPress={this.handlePress.bind(this)}>
                     <Text>On Tap</Text>
@@ -46,7 +51,7 @@ export default class App extends Component<Props> {
     }
 }
 
-const styles = StyleSheet.create({
+/*const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
@@ -63,4 +68,4 @@ const styles = StyleSheet.create({
         color: '#333333',
         marginBottom: 5,
     },
-});
+});*/

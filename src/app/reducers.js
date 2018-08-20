@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
 
 const GET_TODO = 'GET_TODO';
+const GET_TODOS = 'GET_TODOS';
 const GET_TODO_COMPLETE = 'GET_TODO_COMPLETE';
 export const CREATE_TODO = 'CREATE_TODO';
 export const ADD_POST = 'ADD_POST';
@@ -16,15 +17,15 @@ const todo = (state = [], action) => {
                 action.payload,
                 ...state
             ];
+
+        case GET_TODOS:
+            return action.payload;
         default:
             return state;
     }
 };
 
-const reddit = (state = [
-    {name: "shubham"},
-    {name: "burman"}
-], action) => {
+const reddit = (state = [], action) => {
     switch (action.type) {
         case GET_TODO:
             return state;
